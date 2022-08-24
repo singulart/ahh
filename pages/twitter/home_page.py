@@ -11,7 +11,7 @@ class TwHomePage(BasePage):
     ACCOUNT_MENU = BasePage.text_locator('Account')
     LOGIN_AND_SECURITY = BasePage.text_locator('Login and security')
     LOG_OUT = BasePage.text_locator('Log out')
-    SEARCH_ICON = (MobileBy.ACCESSIBILITY_ID, 'Explore')  # TODO
+    SEARCH_ICON = (MobileBy.ACCESSIBILITY_ID, 'Search and Explore') 
 
     def allow_data_collection(self: 'TwHomePage') -> None:
         self.wait(self.BTN1).click()

@@ -6,41 +6,6 @@ from typing import Callable
 
 MakeDriver = Callable[[str], webdriver.Remote]
 
-
-ZOOM_ANDROID_CAPS = {
-    'platformName': 'Android',
-    'deviceName': 'Android',
-    'appPackage': 'us.zoom.videomeetings',
-    'appActivity': 'com.zipow.videobox.LauncherActivity',
-    'automationName': 'UiAutomator2',
-    'newCommandTimeout': 300,
-}
-
-
-ZOOM_IOS_CAPS = {
-    'platformName': 'iOS',
-    'platformVersion': '12.4',
-    'deviceName': 'iPhone 5s',
-    'bundleId': 'us.zoom.videomeetings',
-    'udid': 'auto',
-    'xcodeOrgId': os.environ.get('XCODE_ORG_ID'),
-    'xcodeSigningId': 'iPhone Developer',
-    'updatedWDABundleId': 'io.cloudgrey.wda',
-    'automationName': 'XCUITest',
-    'newCommandTimeout': 300,
-}
-
-
-CRAIGSLIST_ANDROID_CAPS = {
-    'platformName': 'Android',
-    'deviceName': 'Android',
-    'app': '/Users/jlipps/Code/testapps/craigslist.apk',
-    'appWaitActivity': 'org.craigslist.CraigslistMobile.MainActivity',
-    'automationName': 'UiAutomator2',
-    'newCommandTimeout': 300,
-}
-
-
 TWITTER_ANDROID_CAPS = {
     'platformName': 'Android',
     'deviceName': 'Android',
@@ -51,48 +16,11 @@ TWITTER_ANDROID_CAPS = {
 }
 
 
-YOUMAIL_IOS_CAPS = {
-    'platformName': 'iOS',
-    'platformVersion': '13.5',
-    'deviceName': 'iPhone 11 Pro',
-    'bundleId': 'RH8QQ5UXC8.youmail.',
-    'udid': '00008030-000409213C6A802E',
-    'usePrebuiltWDA': True,
-    'derivedDataPath': '/Users/jlipps/Library/Developer/Xcode/DerivedData/WebDriverAgent-avsfgzldrqurgfefzpwggvhisjdc',
-    'automationName': 'XCUITest',
-    'newCommandTimeout': 300,
-}
-
-
-YOUTUBE_ANDROID_CAPS = {
-    'platformName': 'Android',
-    'deviceName': 'Android',
-    'appPackage': 'com.google.android.youtube',
-    'appActivity': 'com.google.android.apps.youtube.app.WatchWhileActivity',
-    'automationName': 'UiAutomator2',
-    'newCommandTimeout': 300,
-}
-
-
-WEATHER_IOS_CAPS = {
-    'platformName': 'iOS',
-    'platformVersion': '13.5',
-    'deviceName': 'iPhone 11 Pro',
-    'bundleId': 'com.apple.weather',
-    'udid': '00008030-000409213C6A802E',
-    'usePrebuiltWDA': True,
-    'derivedDataPath': '/Users/jlipps/Library/Developer/Xcode/DerivedData/WebDriverAgent-avsfgzldrqurgfefzpwggvhisjdc',
-    'automationName': 'XCUITest',
-    'newCommandTimeout': 300,
-}
-
-
 @pytest.fixture
 def make_driver() -> webdriver.Remote:
-    caps = TWITTER_ANDROID_CAPS
-    return  webdriver.Remote(
-        command_executor='http://localhost:4723/wd/hub',
-        desired_capabilities=caps
+    driver = webdriver.Remote(
+            command_executor='http://localhost:4723/wd/hub',
+            desired_capabilities= TWITTER_ANDROID_CAPS
     )
-
-
+    yield driver
+    driver.quit()

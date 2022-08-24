@@ -9,7 +9,10 @@ if TYPE_CHECKING:
 
 class TwSearchPage(BasePage):
     ENABLE_SEARCH_BTN = (By.ID, 'query_view')
-    SEARCH_BOX = (MobileBy.ACCESSIBILITY_ID, 'Search')
+    SEARCH_BOX = (By.ID, 'query')
+    SEARCH_SUGGESTIONS = (By.ID, 'search_suggestions_list')
+    SEARCH_RESULTS_CAROUSEL = (By.ID, 'carousel_wrapper')
+
     HOME_TAB = (MobileBy.ACCESSIBILITY_ID, 'Home Tab')
 
     def search_for_user(self: 'TwSearchPage', username: str) -> TwProfilePage:
