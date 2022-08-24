@@ -89,29 +89,10 @@ WEATHER_IOS_CAPS = {
 
 @pytest.fixture
 def make_driver() -> webdriver.Remote:
-    driver = None
+    caps = TWITTER_ANDROID_CAPS
+    return  webdriver.Remote(
+        command_executor='http://localhost:4723/wd/hub',
+        desired_capabilities=caps
+    )
 
-    def _make_driver(app: str) -> webdriver.Remote:
-        nonlocal driver
-        if app == "zoom_android":
-            caps = ZOOM_ANDROID_CAPS
-        elif app == "zoom_ios":
-            caps = ZOOM_IOS_CAPS
-        elif app == "craigslist":
-            caps = CRAIGSLIST_ANDROID_CAPS
-        elif app == "twitter":
-            caps = TWITTER_ANDROID_CAPS
-        elif app == "youmail":
-            caps = YOUMAIL_IOS_CAPS
-        elif app == "youtube":
-            caps = YOUTUBE_ANDROID_CAPS
-        elif app == "weather":
-            caps = WEATHER_IOS_CAPS
-        driver = webdriver.Remote(
-            command_executor='http://localhost:4723',
-            desired_capabilities=caps
-        )
-        return driver
 
-    yield _make_driver
-    driver.quit()
